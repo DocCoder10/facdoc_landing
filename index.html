@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Facdoc • Bibliothèque Médicale Mobile</title>
+    <meta name="description" content="Application officielle pour étudiants en Médecine et Odontostomatologie de Bamako. Cours organisés hors ligne, annotations PDF et révision efficace.">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/icon.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#06B6D4',
+                        accent: '#8B5CF6',
+                        dark: '#0F172A',
+                        light: '#F8FAFC'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-up': 'fadeUp 0.8s ease-out forwards',
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-in': 'slideIn 0.5s ease-out',
+                        'scale-up': 'scaleUp 0.3s ease-out'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        scaleUp: {
+                            '0%': { transform: 'scale(0.95)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
+    
+</head>
+
+<body class="bg-light text-gray-800 font-sans overflow-x-hidden">
+    
+    <!-- Loading Animation -->
+    <div id="loadingBar" class="loading-bar fixed top-0 left-0 z-50"></div>
+    
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-40 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-md">
+                        <img src="assets/images/icon.png" alt="Facdoc" class="w-8 h-8">
+                    </div>
+                    <div>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Facdoc</span>
+                        <p class="text-xs text-gray-500 -mt-1">Bamako</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Fonctionnalités</a>
+                    <a href="#gallery" class="nav-link text-gray-700 hover:text-primary font-medium transition-colors">Interface</a>
+                    <a href="https://github.com/DocCoder10/facdoc/releases/download/v1.0.0/facdoc_v1.apk" class="btn-primary text-white px-6 py-2.5 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:brightness-110">
+                        <i class="fas fa-download mr-2"></i>Télécharger
+                    </a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <button id="menuBtn" class="md:hidden text-gray-700 hover:text-primary text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="md:hidden mobile-menu fixed inset-x-0 top-16 bg-white/95 backdrop-blur-lg border-t border-gray-100 shadow-xl" style="display: none;">
+            <div class="px-4 py-6 space-y-6">
+                <a href="#features" class="block text-lg font-medium text-gray-700 hover:text-primary transition-colors py-2">
+                    <i class="fas fa-star mr-3 text-primary"></i>Fonctionnalités
+                </a>
+                <a href="#gallery" class="block text-lg font-medium text-gray-700 hover:text-primary transition-colors py-2">
+                    <i class="fas fa-images mr-3 text-primary"></i>Interface
+                </a>
+                <a href="https://github.com/DocCoder10/facdoc/releases/download/v1.0.0/facdoc_v1.apk" class="btn-primary block text-center text-white py-3 px-4 rounded-lg font-semibold shadow-lg mt-4">
+                    <i class="fas fa-download mr-2"></i>Télécharger l'application
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-32 relative overflow-hidden">
+        <!-- Background elements -->
+        <div class="absolute inset-0 hero-gradient opacity-5"></div>
+        <div class="absolute top-10 left-10 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-secondary rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float" style="animation-delay: 2s;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Text content -->
+                <div class="animate-fade-up">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold mb-6 animate-slide-in">
+                        <i class="fas fa-mobile-alt mr-2"></i> Application Mobile Officielle
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Vos cours de Médecine,
+                        <span class="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                            organisés & hors ligne
+                        </span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-600 mb-8 max-w-xl">
+                        Facdoc est l'application exclusive pour les étudiants de la Faculté de Médecine et d'Odontostomatologie de Bamako. Accédez à tous vos cours, fichiers PDF et supports de révision sans connexion Internet.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <a href="https://github.com/DocCoder10/facdoc/releases/download/v1.0.0/facdoc_v1.apk" 
+                           class="btn-primary text-white px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                            <i class="fas fa-download mr-3 text-xl"></i>
+                            Télécharger APK v1.0
+                        </a>
+                        
+                        <a href="#features" class="bg-white text-primary border-2 border-primary px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                            <i class="fas fa-play-circle mr-3"></i>
+                            Découvrir
+                        </a>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-6 text-sm text-gray-500">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>100% hors ligne</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Annotations PDF</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span>Organisation intelligente</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- App showcase -->
+                <div class="relative">
+                    <div class="relative animate-float max-w-[220px] sm:max-w-[250px] md:max-w-[280px] mx-auto">
+                        <div class="swiper-container hero-showcase-swiper rounded-3xl shadow-2xl img-glow overflow-hidden">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <img src="assets/images/app_img1.jpg" alt="Interface Facdoc - Écran d'accueil" class="w-full h-auto">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="assets/images/app_img2.jpg" alt="Interface Facdoc - Liste des cours" class="w-full h-auto">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="assets/images/app_img3.jpg" alt="Interface Facdoc - Fichiers d'une matière" class="w-full h-auto">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="assets/images/app_img4.jpg" alt="Interface Facdoc - Lecteur PDF" class="w-full h-auto">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="assets/images/app_img5.jpg" alt="Interface Facdoc - Annotations" class="w-full h-auto">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="assets/images/app_img6.jpg" alt="Interface Facdoc - Paramètres" class="w-full h-auto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating stats -->
+                    <div class="absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 bg-white p-3 sm:p-4 rounded-2xl shadow-xl animate-scale-up" style="animation-delay: 0.3s;">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
+                                <i class="fas fa-file-pdf text-primary text-lg sm:text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xl sm:text-2xl font-bold text-dark">500+</p>
+                                <p class="text-xs sm:text-sm text-gray-500">Fichiers PDF</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 bg-white p-3 sm:p-4 rounded-2xl shadow-xl animate-scale-up" style="animation-delay: 0.6s;">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-secondary/10 rounded-lg flex items-center justify-center mr-2 sm:mr-3">
+                                <i class="fas fa-user-graduate text-secondary text-lg sm:text-xl"></i>
+                            </div>
+                            <div>
+                                <p class="text-xl sm:text-2xl font-bold text-dark">6</p>
+                                <p class="text-xs sm:text-sm text-gray-500">Années organisées</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16 animate-fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Pourquoi les étudiants choisissent 
+                    <span class="text-primary">Facdoc</span>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Une application conçue spécifiquement pour les besoins des étudiants en médecine de Bamako
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-gradient-to-br from-white to-blue-50 p-8 rounded-2xl border border-gray-100">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-wifi-slash text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Hors ligne total</h3>
+                    <p class="text-gray-600 mb-4">
+                        Téléchargez vos cours une fois, accédez-y n'importe où, même sans connexion Internet. Parfait pour les révisions en déplacement.
+                    </p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>Fonctionnalité exclusive</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card bg-gradient-to-br from-white to-cyan-50 p-8 rounded-2xl border border-gray-100">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary to-cyan-400 flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-sitemap text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Organisation médicale</h3>
+                    <p class="text-gray-600 mb-4">
+                        Navigation intuitive par année, semestre et matière. Structure adaptée au programme de la Faculté de Médecine de Bamako.
+                    </p>
+                    <div class="flex items-center text-secondary font-semibold">
+                        <span>Optimisé pour les études</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card bg-gradient-to-br from-white to-purple-50 p-8 rounded-2xl border border-gray-100">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-accent to-purple-400 flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-highlighter text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Annotations PDF avancées</h3>
+                    <p class="text-gray-600 mb-4">
+                        Surlignez, notez et marquez vos documents PDF directement dans l'application. Exportez vos annotations pour les révisions.
+                    </p>
+                    <div class="flex items-center text-accent font-semibold">
+                        <span>Productivité maximale</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card bg-gradient-to-br from-white to-blue-50 p-8 rounded-2xl border border-gray-100">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-search text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Recherche intelligente</h3>
+                    <p class="text-gray-600 mb-4">
+                        Trouvez instantanément n'importe quel cours, fichier ou mot-clé dans l'ensemble de votre bibliothèque.
+                    </p>
+                    <div class="flex items-center text-primary font-semibold">
+                        <span>Gain de temps garanti</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card bg-gradient-to-br from-white to-cyan-50 p-8 rounded-2xl border border-gray-100">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-secondary to-cyan-400 flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-cloud-download-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Téléchargements sélectifs</h3>
+                    <p class="text-gray-600 mb-4">
+                        Téléchargez uniquement les matières dont vous avez besoin. Contrôlez totalement l'espace de stockage utilisé.
+                    </p>
+                    <div class="flex items-center text-secondary font-semibold">
+                        <span>Économie d'espace</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card bg-gradient-to-br from-white to-purple-50 p-8 rounded-2xl border border-gray-100">
+                    <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-accent to-purple-400 flex items-center justify-center mb-6 shadow-lg">
+                        <i class="fas fa-sync-alt text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Mises à jour régulières</h3>
+                    <p class="text-gray-600 mb-4">
+                        Nouveaux cours et corrections ajoutés régulièrement. Recevez des notifications pour les mises à jour importantes.
+                    </p>
+                    <div class="flex items-center text-accent font-semibold">
+                        <span>Contenu à jour</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery with Swiper -->
+    <section id="gallery" class="py-20 bg-gradient-to-b from-light to-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Découvrez l'interface 
+                    <span class="text-primary">Facdoc</span>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Interface intuitive spécialement conçue pour une expérience utilisateur optimale sur mobile
+                </p>
+            </div>
+            
+            <!-- Swiper Container -->
+            <div class="swiper-container gallery-swiper max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-[320px] mx-auto rounded-3xl overflow-hidden shadow-2xl">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <div class="relative">
+                            <img src="assets/images/app_img1.jpg" alt="Écran d'accueil Facdoc" class="w-full h-auto">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                <h3 class="text-white text-xl font-bold">Écran d'accueil</h3>
+                                <p class="text-gray-200">Navigation principale par année d'étude</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <div class="relative">
+                            <img src="assets/images/app_img2.jpg" alt="Liste des cours" class="w-full h-auto">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                <h3 class="text-white text-xl font-bold">Liste des cours</h3>
+                                <p class="text-gray-200">Organisation par semestre et matière</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <div class="relative">
+                            <img src="assets/images/app_img3.jpg" alt="Fichiers d'une matière" class="w-full h-auto">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                <h3 class="text-white text-xl font-bold">Fichiers d'une matière</h3>
+                                <p class="text-gray-200">Gestion des téléchargements et prévisualisation</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <div class="relative">
+                            <img src="assets/images/app_img4.jpg" alt="Lecteur PDF" class="w-full h-auto">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                <h3 class="text-white text-xl font-bold">Lecteur PDF</h3>
+                                <p class="text-gray-200">Lecture fluide avec zoom et défilement</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 5 -->
+                    <div class="swiper-slide">
+                        <div class="relative">
+                            <img src="assets/images/app_img5.jpg" alt="Annotations" class="w-full h-auto">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                <h3 class="text-white text-xl font-bold">Annotations</h3>
+                                <p class="text-gray-200">Surlignage, notes et marque-pages</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 6 -->
+                    <div class="swiper-slide">
+                        <div class="relative">
+                            <img src="assets/images/app_img6.jpg" alt="Paramètres" class="w-full h-auto">
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                                <h3 class="text-white text-xl font-bold">Paramètres</h3>
+                                <p class="text-gray-200">Gestion de l'application et des téléchargements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Swiper Pagination -->
+                <div class="swiper-pagination !bottom-4"></div>
+                
+                <!-- Swiper Navigation Buttons -->
+                <div class="swiper-button-next gallery-nav-btn bg-white/25 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/40 transition-all">
+                    <i class="fas fa-chevron-right text-white text-lg"></i>
+                </div>
+                <div class="swiper-button-prev gallery-nav-btn bg-white/25 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/40 transition-all">
+                    <i class="fas fa-chevron-left text-white text-lg"></i>
+                </div>
+            </div>
+            
+            <!-- Thumbnail Gallery -->
+            <div class="swiper-container gallery-thumbs max-w-[220px] sm:max-w-[260px] md:max-w-[300px] lg:max-w-[320px] mx-auto mt-8">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="assets/images/app_img1.jpg" alt="Thumb 1" class="rounded-lg cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/app_img2.jpg" alt="Thumb 2" class="rounded-lg cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/app_img3.jpg" alt="Thumb 3" class="rounded-lg cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/app_img4.jpg" alt="Thumb 4" class="rounded-lg cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/app_img5.jpg" alt="Thumb 5" class="rounded-lg cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/images/app_img6.jpg" alt="Thumb 6" class="rounded-lg cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="py-20 relative overflow-hidden">
+        <!-- Background gradient -->
+        <div class="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-accent opacity-90"></div>
+        
+        <!-- Animated elements -->
+        <div class="absolute top-1/4 left-10 w-64 h-64 bg-white/10 rounded-full animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-white/5 rounded-full animate-pulse-slow" style="animation-delay: 1s;"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <div class="text-center text-white mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    Prêt à révolutionner vos révisions ?
+                </h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    Téléchargez Facdoc maintenant et rejoignez des centaines d'étudiants de la Faculté de Médecine de Bamako
+                </p>
+            </div>
+            
+            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <!-- App info -->
+                    <div class="animate-fade-up">
+                        <div class="flex items-center mb-8">
+                            <div class="w-20 h-20 rounded-2xl bg-white flex items-center justify-center shadow-lg mr-6">
+                                <img src="assets/images/icon.png" alt="Facdoc" class="w-16 h-16">
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-bold text-white">Facdoc v1.0</h3>
+                                <p class="text-white/80">Application Android</p>
+                                <div class="flex items-center mt-2">
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star-half-alt text-yellow-400 mr-2"></i>
+                                    <span class="text-white">4.7/5</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-300 mr-3 text-xl"></i>
+                                <span class="text-white">APK officiel signé et vérifié</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-300 mr-3 text-xl"></i>
+                                <span class="text-white">Android 8.0+ (Oreo et supérieur)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-300 mr-3 text-xl"></i>
+                                <span class="text-white">Aucune donnée personnelle collectée</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-300 mr-3 text-xl"></i>
+                                <span class="text-white">Mises à jour gratuites incluses</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white/10 rounded-xl p-4">
+                            <p class="text-white/90 text-sm">
+                                <i class="fas fa-info-circle mr-2"></i>
+                                Après installation, autorisez l'installation depuis des sources inconnues dans les paramètres Android.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Download card -->
+                    <div class="animate-fade-up" style="animation-delay: 0.2s;">
+                        <div class="bg-white rounded-2xl p-8 shadow-2xl">
+                            <div class="text-center mb-8">
+                                <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center">
+                                    <i class="fas fa-download text-white text-3xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-dark mb-2">Téléchargement direct</h3>
+                                <p class="text-gray-600">Version 1.0 • 45.2 MB</p>
+                            </div>
+                            
+                            <a href="https://github.com/DocCoder10/facdoc/releases/download/v1.0.0/facdoc_v1.apk" 
+                               class="btn-primary text-white w-full py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center mb-6">
+                                <i class="fab fa-android mr-3 text-2xl"></i>
+                                Télécharger Facdoc.apk
+                            </a>
+                            
+                            <div class="text-center">
+                                <p class="text-sm text-gray-500 mb-2">
+                                    <i class="fas fa-shield-alt mr-2"></i>
+                                    Sécurité vérifiée • Aucun virus détecté
+                                </p>
+                                <p class="text-xs text-gray-400">
+                                    Développé par DocCoder10 • Pour les étudiants de Bamako
+                                </p>
+                            </div>
+                            
+                            <!-- QR Code for mobile -->
+                            <div class="mt-8 pt-8 border-t border-gray-100">
+                                <p class="text-center text-gray-600 mb-4">
+                                    <i class="fas fa-qrcode mr-2"></i>
+                                    Scannez sur mobile
+                                </p>
+                                <div class="bg-gray-100 rounded-xl p-4 max-w-xs mx-auto">
+                                    <!-- Placeholder for QR code -->
+                                    <div class="w-32 h-32 mx-auto bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
+                                        <i class="fas fa-mobile-alt text-white text-4xl"></i>
+                                    </div>
+                                    <p class="text-center text-xs text-gray-500 mt-3">
+                                        Utilisez l'appareil photo de votre téléphone
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Questions fréquentes
+                </h2>
+                <p class="text-gray-600">
+                    Tout ce que vous devez savoir sur Facdoc
+                </p>
+            </div>
+            
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item bg-gray-50 rounded-2xl p-6 cursor-pointer transition-all hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-dark">
+                            L'application est-elle vraiment gratuite ?
+                        </h3>
+                        <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                    </div>
+                    <div class="faq-answer mt-4 hidden">
+                        <p class="text-gray-600">
+                            Oui, Facdoc est 100% gratuit pour tous les étudiants de la Faculté de Médecine et d'Odontostomatologie de Bamako. Aucun paiement n'est requis, ni maintenant, ni à l'avenir.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item bg-gray-50 rounded-2xl p-6 cursor-pointer transition-all hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-dark">
+                            Comment installer l'APK sur Android ?
+                        </h3>
+                        <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                    </div>
+                    <div class="faq-answer mt-4 hidden">
+                        <p class="text-gray-600">
+                            1. Téléchargez le fichier APK<br>
+                            2. Allez dans Paramètres → Sécurité → Activer "Sources inconnues"<br>
+                            3. Ouvrez le fichier téléchargé et installez<br>
+                            4. Lancez l'application et sélectionnez votre année
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item bg-gray-50 rounded-2xl p-6 cursor-pointer transition-all hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-dark">
+                            Les cours sont-ils à jour avec le programme ?
+                        </h3>
+                        <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                    </div>
+                    <div class="faq-answer mt-4 hidden">
+                        <p class="text-gray-600">
+                            Absolument. Nous travaillons en collaboration avec des enseignants et étudiants pour maintenir les cours à jour avec le programme officiel de la faculté. Les mises à jour sont publiées régulièrement.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item bg-gray-50 rounded-2xl p-6 cursor-pointer transition-all hover:shadow-lg">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-dark">
+                            Puis-je utiliser Facdoc sur iPhone ?
+                        </h3>
+                        <i class="fas fa-chevron-down text-primary transition-transform"></i>
+                    </div>
+                    <div class="faq-answer mt-4 hidden">
+                        <p class="text-gray-600">
+                            Malheureusement, Facdoc n'est disponible que sur Android pour le moment. Une version iOS est envisagée pour l'avenir, mais aucune date de sortie n'est confirmée.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-16 pb-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <!-- Brand -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mr-3">
+                            <img src="assets/images/icon.png" alt="Facdoc" class="w-10 h-10">
+                        </div>
+                        <div>
+                            <span class="text-2xl font-bold">Facdoc</span>
+                            <p class="text-sm text-gray-400">Bamako</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        L'application mobile officielle pour les étudiants en Médecine et Odontostomatologie de Bamako.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/DocCoder10/facdoc" target="_blank" rel="noopener noreferrer" aria-label="GitHub Facdoc" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <span class="w-10 h-10 rounded-full bg-gray-800/70 flex items-center justify-center text-gray-500 cursor-not-allowed" title="Lien Telegram bientôt disponible">
+                            <i class="fab fa-telegram"></i>
+                        </span>
+                        <span class="w-10 h-10 rounded-full bg-gray-800/70 flex items-center justify-center text-gray-500 cursor-not-allowed" title="Lien YouTube bientôt disponible">
+                            <i class="fab fa-youtube"></i>
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Navigation</h4>
+                    <ul class="space-y-4">
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Fonctionnalités</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-white transition-colors">Interface</a></li>
+                        <li><a href="#download" class="text-gray-400 hover:text-white transition-colors">Télécharger</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Application -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Application</h4>
+                    <ul class="space-y-4">
+                        <li class="text-gray-400">Version: 1.0</li>
+                        <li class="text-gray-400">Plateforme: Android</li>
+                        <li class="text-gray-400">Taille: 45.2 MB</li>
+                        <li class="text-gray-400">Langue: Français</li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-lg font-bold mb-6">Support</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-3 text-primary"></i>
+                            <span>support@facdoc.ml</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-3 text-primary"></i>
+                            <span>Faculté de Médecine, Bamako</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-user mr-3 text-primary"></i>
+                            <span>Développeur: DocCoder10</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-center md:text-left mb-4 md:mb-0">
+                        © 2024 Facdoc. Application éducative développée pour la communauté étudiante.
+                    </p>
+                    <div class="flex items-center space-x-6">
+                        <span class="text-gray-500 text-sm cursor-default">Mentions légales</span>
+                        <span class="text-gray-500 text-sm cursor-default">Confidentialité</span>
+                        <span class="text-gray-500 text-sm cursor-default">Conditions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-white rounded-full shadow-xl hover:shadow-2xl transition-all transform hover:-translate-y-1 z-30 opacity-0 scale-0">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- Main JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
