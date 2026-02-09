@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Facdoc • L'Assistant Académique Intelligent pour Étudiants</title>
-    <meta name="description" content="Facdoc révolutionne votre organisation académique. Centralisez vos cours, planifiez vos révisions et boostez votre productivité étudiante." />
+    <title>Facdoc • Votre Bibliothèque Académique Mobile</title>
+    <meta name="description" content="Accédez à tous vos cours universitaires hors ligne. Organisez, annotez et révisez efficacement avec Facdoc." />
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
+    <link rel="icon" href="assets/images/facdoc-icon.png" type="image/png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,29 +16,28 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4361ee',
-                        secondary: '#3a0ca3',
-                        accent: '#4cc9f0',
-                        dark: '#1a1a2e',
-                        light: '#f8f9fa'
+                        primary: '#1E88E5',
+                        secondary: '#26C6DA',
+                        accent: '#FF6B6B',
+                        dark: '#1A1A2E',
+                        light: '#F8F9FA'
                     },
                     animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out',
                         'slide-up': 'slideUp 0.6s ease-out',
-                        'pulse-slow': 'pulse 3s ease-in-out infinite'
                     },
                     keyframes: {
                         float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-20px)' }
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
                         },
                         fadeIn: {
                             '0%': { opacity: '0' },
                             '100%': { opacity: '1' }
                         },
                         slideUp: {
-                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
                             '100%': { transform: 'translateY(0)', opacity: '1' }
                         }
                     }
@@ -47,20 +46,31 @@
         }
     </script>
     
-    <!-- Font Awesome pour icônes -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Styles personnalisés -->
     <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 50%, #4cc9f0 100%);
+        .hero-gradient {
+            background: linear-gradient(135deg, #1E88E5 0%, #26C6DA 100%);
         }
         .card-hover {
             transition: all 0.3s ease;
         }
         .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .section-padding {
+            padding: 5rem 1rem;
+        }
+        @media (min-width: 768px) {
+            .section-padding {
+                padding: 6rem 2rem;
+            }
+        }
+        .sticky-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.9);
         }
         .image-zoom {
             transition: transform 0.5s ease;
@@ -68,56 +78,24 @@
         .image-zoom:hover {
             transform: scale(1.05);
         }
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #4361ee;
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .scroll-hidden {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        .scroll-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 
-<body class="bg-light text-gray-800 antialiased font-sans">
+<body class="bg-light text-gray-800 font-sans">
     
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <div class="flex items-center space-x-2">
-                        <div class="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
-                            <i class="fas fa-graduation-cap text-white text-sm"></i>
-                        </div>
-                        <span class="text-xl font-bold text-dark">Facdoc</span>
-                    </div>
+    <nav class="fixed w-full z-50 bg-white shadow-sm py-4">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                    <i class="fas fa-book text-white text-lg"></i>
                 </div>
-                
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="nav-link text-gray-600 hover:text-primary font-medium">Fonctionnalités</a>
-                    <a href="#gallery" class="nav-link text-gray-600 hover:text-primary font-medium">Galerie</a>
-                    <a href="#download" class="nav-link text-gray-600 hover:text-primary font-medium">Télécharger</a>
-                </div>
-                
-                <a href="#download" class="bg-primary text-white px-6 py-2 rounded-full font-medium hover:bg-secondary transition duration-300 shadow-md hover:shadow-lg">
+                <span class="text-xl font-bold text-dark">Facdoc</span>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#features" class="text-gray-600 hover:text-primary transition">Fonctionnalités</a>
+                <a href="#gallery" class="text-gray-600 hover:text-primary transition">Galerie</a>
+                <a href="#download" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                     <i class="fas fa-download mr-2"></i>Télécharger
                 </a>
             </div>
@@ -125,280 +103,230 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <section class="pt-24 pb-20 md:pt-32 md:pb-28">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="animate-fade-in">
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-medium mb-6">
-                        <i class="fas fa-rocket mr-2"></i> Nouvelle version disponible
-                    </div>
-                    
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-dark mb-6 leading-tight">
-                        Votre <span class="text-primary">assistant académique</span> intelligent
+                    <h1 class="text-4xl md:text-5xl font-bold text-dark mb-6">
+                        Vos cours universitaires,<br>
+                        <span class="text-primary">toujours avec vous</span>
                     </h1>
                     
-                    <p class="text-lg text-gray-600 mb-8 max-w-lg">
-                        Facdoc centralise tous vos documents de cours, organise votre emploi du temps et optimise votre productivité étudiante. La réussite académique, simplifiée.
+                    <p class="text-lg text-gray-600 mb-8">
+                        Facdoc centralise tous vos documents de cours, supports PDF et fichiers académiques dans une application mobile intuitive. Accédez à tout, même hors connexion.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
-                        <a href="https://github.com/DocCoder10/facdoc/releases/download/v1.0.0/facdoc_v1.apk
-" class="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-secondary transition duration-300 shadow-lg hover:shadow-xl flex items-center justify-center group">
-                            <i class="fas fa-download mr-3"></i>
-                            Télécharger gratuitement
-                            <i class="fas fa-arrow-right ml-3 transform group-hover:translate-x-2 transition duration-300"></i>
+                    <div class="space-y-4">
+                        <a href="#download" class="inline-block bg-primary text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg">
+                            <i class="fas fa-download mr-3"></i>Télécharger Facdoc (APK)
                         </a>
-                    </div>
-                    
-                    <div class="flex items-center space-x-6">
-                        <div class="flex items-center">
-                            <i class="fas fa-star text-yellow-400 mr-1"></i>
-                            <i class="fas fa-star text-yellow-400 mr-1"></i>
-                            <i class="fas fa-star text-yellow-400 mr-1"></i>
-                            <i class="fas fa-star text-yellow-400 mr-1"></i>
-                            <i class="fas fa-star text-yellow-400 mr-2"></i>
-                            <span class="text-gray-600">4.9/5</span>
-                        </div>
-                        <div class="text-gray-500">
-                            <i class="fas fa-users mr-2"></i>10k+ étudiants satisfaits
-                        </div>
+                        <p class="text-sm text-gray-500">
+                            Version 1.0 • Android 8.0+ • APK signé et vérifié
+                        </p>
                     </div>
                 </div>
                 
                 <div class="relative animate-float">
                     <div class="relative z-10">
-                        <div class="bg-gradient-to-br from-primary to-accent rounded-3xl p-2 shadow-2xl">
-                            <img src="assets/images/app_img1.jpg" alt="Interface Facdoc" class="rounded-2xl shadow-lg">
-                        </div>
+                        <img src="assets/images/app_img1.jpg" alt="Interface Facdoc" class="rounded-2xl shadow-2xl">
                     </div>
-                    <div class="absolute -top-6 -right-6 w-64 h-64 bg-primary/10 rounded-full blur-3xl"></div>
-                    <div class="absolute -bottom-6 -left-6 w-72 h-72 bg-accent/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -top-4 -right-4 w-32 h-32 bg-primary/10 rounded-full blur-xl"></div>
+                    <div class="absolute -bottom-4 -left-4 w-40 h-40 bg-secondary/10 rounded-full blur-xl"></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Présentation -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-hidden">
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">Révolutionnez votre organisation étudiante</h2>
-                <p class="text-gray-600 text-lg">
-                    Facdoc résout les problèmes d'organisation courants chez les étudiants. Plus de documents éparpillés, plus d'emploi du temps chaotique. Juste une productivité optimisée.
-                </p>
-            </div>
+    <section class="bg-white py-16">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-dark mb-8">Une bibliothèque académique dans votre poche</h2>
+            <p class="text-gray-600 text-lg mb-12">
+                Facdoc résout un problème simple : les étudiants ont des dizaines de fichiers PDF éparpillés sur leur téléphone. Notre application les organise par matière et semestre, avec un accès hors ligne instantané.
+            </p>
             
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-light p-8 rounded-2xl card-hover scroll-hidden">
-                    <div class="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center mb-6">
-                        <i class="fas fa-folder-open text-white text-xl"></i>
+                <div class="p-6">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-wifi-slash text-primary text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Centralisation intelligente</h3>
-                    <p class="text-gray-600">
-                        Tous vos cours, supports et documents académiques organisés en un seul endroit sécurisé et accessible depuis n'importe quel appareil.
-                    </p>
+                    <h3 class="font-bold text-lg mb-2">Hors ligne d'abord</h3>
+                    <p class="text-gray-600">Téléchargez une fois, accédez toujours</p>
                 </div>
                 
-                <div class="bg-light p-8 rounded-2xl card-hover scroll-hidden">
-                    <div class="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center mb-6">
-                        <i class="fas fa-calendar-alt text-white text-xl"></i>
+                <div class="p-6">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-sitemap text-primary text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Planning optimisé</h3>
-                    <p class="text-gray-600">
-                        Un emploi du temps intelligent qui s'adapte à vos cours, examens et temps de révision pour une organisation parfaite de votre semestre.
-                    </p>
+                    <h3 class="font-bold text-lg mb-2">Organisation intelligente</h3>
+                    <p class="text-gray-600">Par classe, semestre et matière</p>
                 </div>
                 
-                <div class="bg-light p-8 rounded-2xl card-hover scroll-hidden">
-                    <div class="w-14 h-14 rounded-xl gradient-bg flex items-center justify-center mb-6">
-                        <i class="fas fa-chart-line text-white text-xl"></i>
+                <div class="p-6">
+                    <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4 mx-auto">
+                        <i class="fas fa-highlighter text-primary text-2xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Suivi de progression</h3>
-                    <p class="text-gray-600">
-                        Visualisez vos progrès, identifiez vos points faibles et suivez votre évolution tout au long de l'année académique.
-                    </p>
+                    <h3 class="font-bold text-lg mb-2">Annotations PDF</h3>
+                    <p class="text-gray-600">Surlignez et notez vos documents</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Fonctionnalités -->
-    <section id="features" class="py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-hidden">
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">Fonctionnalités clés</h2>
-                <p class="text-gray-600">
-                    Découvrez comment Facdoc transforme votre expérience étudiante avec des outils puissants et intuitifs.
-                </p>
-            </div>
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-dark mb-12">Fonctionnalités principales</h2>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Card 1 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover scroll-hidden">
-                    <div class="text-primary text-3xl mb-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Fonctionnalité 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <div class="text-primary text-2xl mb-4">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-3">Sélection de classe</h3>
+                    <p class="text-gray-600 mb-4">
+                        Choisissez votre promotion (Médecine 1, 2, etc.) pour accéder aux cours correspondants.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Choix unique et sécurisé
+                    </div>
+                </div>
+                
+                <!-- Fonctionnalité 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <div class="text-primary text-2xl mb-4">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-3">Cours par semestre</h3>
+                    <p class="text-gray-600 mb-4">
+                        Navigation simple entre le Semestre 1 et 2. Visualisez toutes les matières d'un coup d'œil.
+                    </p>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Interface intuitive
+                    </div>
+                </div>
+                
+                <!-- Fonctionnalité 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <div class="text-primary text-2xl mb-4">
                         <i class="fas fa-file-pdf"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Gestion des documents</h3>
+                    <h3 class="font-bold text-lg mb-3">Gestion des fichiers</h3>
                     <p class="text-gray-600 mb-4">
-                        Importez, organisez et annotez vos PDF, présentations et documents de cours avec un système de tags intelligent.
+                        Téléchargez uniquement les fichiers dont vous avez besoin. Gestion intelligente de l'espace.
                     </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Recherche texte intégral
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Synchronisation cloud
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover scroll-hidden">
-                    <div class="text-primary text-3xl mb-6">
-                        <i class="fas fa-tasks"></i>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Téléchargement sélectif
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Todo List intelligente</h3>
-                    <p class="text-gray-600 mb-4">
-                        Gérez vos devoirs, projets et révisions avec des rappels intelligents et une priorisation automatique.
-                    </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Rappels personnalisés
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Partage de tâches
-                        </li>
-                    </ul>
                 </div>
                 
-                <!-- Card 3 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover scroll-hidden">
-                    <div class="text-primary text-3xl mb-6">
-                        <i class="fas fa-comments"></i>
+                <!-- Fonctionnalité 4 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <div class="text-primary text-2xl mb-4">
+                        <i class="fas fa-highlighter"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Collaboration</h3>
+                    <h3 class="font-bold text-lg mb-3">Lecteur PDF avancé</h3>
                     <p class="text-gray-600 mb-4">
-                        Travaillez en groupe facilement : partagez des documents, annotez en temps réel et planifiez vos sessions d'étude.
+                        Lecture fluide des PDF avec zoom, recherche texte et mémorisation de la dernière page.
                     </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Annotation collaborative
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Chat intégré
-                        </li>
-                    </ul>
-                </div>
-                
-                <!-- Card 4 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover scroll-hidden">
-                    <div class="text-primary text-3xl mb-6">
-                        <i class="fas fa-brain"></i>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Annotations intégrées
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Réviseur intelligent</h3>
-                    <p class="text-gray-600 mb-4">
-                        Des fiches de révision automatiques, des quiz personnalisés et un planning de révision basé sur la courbe d'oubli.
-                    </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Flashcards intelligentes
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Quiz adaptatifs
-                        </li>
-                    </ul>
                 </div>
                 
-                <!-- Card 5 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover scroll-hidden">
-                    <div class="text-primary text-3xl mb-6">
-                        <i class="fas fa-chart-pie"></i>
+                <!-- Fonctionnalité 5 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <div class="text-primary text-2xl mb-4">
+                        <i class="fas fa-tags"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Analytiques détaillées</h3>
+                    <h3 class="font-bold text-lg mb-3">Annotations intelligentes</h3>
                     <p class="text-gray-600 mb-4">
-                        Visualisez vos statistiques d'étude, vos progrès par matière et obtenez des recommandations personnalisées.
+                        Surlignez les passages importants, ajoutez des notes et marquez les pages à réviser.
                     </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Tableaux de bord
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Insights personnalisés
-                        </li>
-                    </ul>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-check text-green-500 mr-2"></i>3 types d'annotations
+                    </div>
                 </div>
                 
-                <!-- Card 6 -->
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 card-hover scroll-hidden">
-                    <div class="text-primary text-3xl mb-6">
+                <!-- Fonctionnalité 6 -->
+                <div class="bg-white p-6 rounded-xl shadow-sm card-hover">
+                    <div class="text-primary text-2xl mb-4">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-dark mb-4">Multi-plateforme</h3>
+                    <h3 class="font-bold text-lg mb-3">100% hors ligne</h3>
                     <p class="text-gray-600 mb-4">
-                        Accédez à vos documents et à votre planning depuis votre smartphone, tablette ou ordinateur. Synchronisation en temps réel.
+                        Une fois téléchargés, vos fichiers sont accessibles sans connexion Internet.
                     </p>
-                    <ul class="space-y-2">
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            iOS et Android
-                        </li>
-                        <li class="flex items-center text-gray-600">
-                            <i class="fas fa-check text-green-500 mr-3"></i>
-                            Version web
-                        </li>
-                    </ul>
+                    <div class="text-sm text-gray-500">
+                        <i class="fas fa-check text-green-500 mr-2"></i>Pas de données consommées
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Galerie -->
-    <section id="gallery" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 scroll-hidden">
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-6">Découvrez l'interface</h2>
-                <p class="text-gray-600">
-                    Une interface intuitive et élégante conçue spécialement pour les besoins des étudiants.
-                </p>
+    <section id="gallery" class="py-16 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-dark mb-12">Découvrez l'interface</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="overflow-hidden rounded-xl shadow-lg image-zoom">
+                    <img src="assets/images/app_img1.jpg" alt="Écran d'accueil Facdoc" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium">Écran d'accueil</p>
+                        <p class="text-sm text-gray-600">Navigation principale</p>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-xl shadow-lg image-zoom">
+                    <img src="assets/images/app_img2.jpg" alt="Liste des cours" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium">Liste des cours</p>
+                        <p class="text-sm text-gray-600">Par semestre et matière</p>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-xl shadow-lg image-zoom">
+                    <img src="assets/images/app_img3.jpg" alt="Fichiers d'une matière" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium">Fichiers d'une matière</p>
+                        <p class="text-sm text-gray-600">Gestion des téléchargements</p>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-xl shadow-lg image-zoom">
+                    <img src="assets/images/app_img4.jpg" alt="Lecteur PDF" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium">Lecteur PDF</p>
+                        <p class="text-sm text-gray-600">Lecture et annotation</p>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-xl shadow-lg image-zoom">
+                    <img src="assets/images/app_img5.jpg" alt="Annotations" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium">Annotations</p>
+                        <p class="text-sm text-gray-600">Surlignage et notes</p>
+                    </div>
+                </div>
+                
+                <div class="overflow-hidden rounded-xl shadow-lg image-zoom">
+                    <img src="assets/images/app_img6.jpg" alt="Paramètres" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="font-medium">Paramètres</p>
+                        <p class="text-sm text-gray-600">Gestion de l'application</p>
+                    </div>
+                </div>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="overflow-hidden rounded-2xl shadow-lg image-zoom scroll-hidden">
-                    <img src="assets/images/app_img1.jpg" alt="Interface principale Facdoc" class="w-full h-64 object-cover">
-                </div>
-                <div class="overflow-hidden rounded-2xl shadow-lg image-zoom scroll-hidden">
-                    <img src="assets/images/app_img2.jpg" alt="Gestion des documents" class="w-full h-64 object-cover">
-                </div>
-                <div class="overflow-hidden rounded-2xl shadow-lg image-zoom scroll-hidden">
-                    <img src="assets/images/app_img3.jpg" alt="Planning intelligent" class="w-full h-64 object-cover">
-                </div>
-                <div class="overflow-hidden rounded-2xl shadow-lg image-zoom scroll-hidden">
-                    <img src="assets/images/app_img4.jpg" alt="Création de fiches" class="w-full h-64 object-cover">
-                </div>
-                <div class="overflow-hidden rounded-2xl shadow-lg image-zoom scroll-hidden">
-                    <img src="assets/images/app_img5.jpg" alt="Statistiques d'étude" class="w-full h-64 object-cover">
-                </div>
-                <div class="overflow-hidden rounded-2xl shadow-lg image-zoom scroll-hidden">
-                    <img src="assets/images/app_img6.jpg" alt="Mode révision" class="w-full h-64 object-cover">
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <div class="inline-flex space-x-4">
-                    <button id="prevBtn" class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center hover:bg-secondary transition">
+            <div class="text-center">
+                <div class="inline-flex space-x-2">
+                    <button onclick="prevImage()" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-blue-700 transition">
                         <i class="fas fa-chevron-left"></i>
                     </button>
-                    <button id="nextBtn" class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center hover:bg-secondary transition">
+                    <button onclick="nextImage()" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-blue-700 transition">
                         <i class="fas fa-chevron-right"></i>
                     </button>
                 </div>
@@ -407,53 +335,51 @@
     </section>
 
     <!-- Téléchargement -->
-    <section id="download" class="py-20 gradient-bg text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="animate-pulse-slow">
-                <i class="fas fa-download text-5xl mb-8"></i>
-            </div>
-            
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Prêt à révolutionner vos études ?</h2>
-            
-            <p class="text-xl mb-10 opacity-90 max-w-2xl mx-auto">
-                Rejoignez des milliers d'étudiants qui ont déjà transformé leur organisation académique avec Facdoc.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
-                <a href="https://github.com/DocCoder10/facdoc/releases/download/v1.0.0/facdoc_v1.apk" 
-                   class="bg-white text-primary px-10 py-5 rounded-xl font-bold text-lg hover:bg-gray-100 transition duration-300 shadow-2xl flex items-center justify-center">
-                    <i class="fab fa-android text-2xl mr-4"></i>
-                    <div class="text-left">
-                        <div class="text-sm">Télécharger pour</div>
-                        <div>Android</div>
-                    </div>
-                </a>
+    <section id="download" class="py-16 bg-gray-50">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="bg-white rounded-2xl p-8 md:p-12 shadow-lg">
+                <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-download text-primary text-3xl"></i>
+                </div>
                 
-                <a href="#" 
-                   class="bg-dark/80 text-white px-10 py-5 rounded-xl font-bold text-lg hover:bg-dark transition duration-300 shadow-2xl flex items-center justify-center border border-white/20">
-                    <i class="fab fa-apple text-2xl mr-4"></i>
-                    <div class="text-left">
-                        <div class="text-sm">Disponible bientôt sur</div>
-                        <div>iOS</div>
+                <h2 class="text-3xl font-bold text-dark mb-6">Téléchargez Facdoc</h2>
+                
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Version 1.0 - Application Android hors Play Store. Installation simple et rapide.
+                </p>
+                
+                <div class="space-y-6">
+                    <a href="https://github.com/doccoder10/facdoc_app/releases/download/v1.0/facdoc_v1.apk" 
+                       class="inline-block bg-primary text-white px-10 py-4 rounded-lg font-semibold text-lg hover:bg-blue-700 transition shadow-lg">
+                        <i class="fab fa-android mr-3"></i>Télécharger pour Android (APK)
+                    </a>
+                    
+                    <div class="bg-gray-100 rounded-lg p-6 max-w-md mx-auto">
+                        <h4 class="font-bold mb-4">Informations d'installation</h4>
+                        <ul class="text-left text-gray-600 space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>APK officiel signé et vérifié</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Android 8.0 ou version ultérieure</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Aucune donnée personnelle collectée</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>Connexion Internet requise uniquement pour le premier téléchargement des cours</span>
+                            </li>
+                        </ul>
                     </div>
-                </a>
-            </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto">
-                <h3 class="text-xl font-bold mb-4">Pourquoi choisir Facdoc ?</h3>
-                <div class="grid md:grid-cols-3 gap-6 text-center">
-                    <div>
-                        <div class="text-3xl font-bold mb-2">100%</div>
-                        <div class="opacity-90">Gratuit pour les étudiants</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold mb-2">24/7</div>
-                        <div class="opacity-90">Support disponible</div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-bold mb-2">30 jours</div>
-                        <div class="opacity-90">Essai premium gratuit</div>
-                    </div>
+                    
+                    <p class="text-sm text-gray-500">
+                        <i class="fas fa-shield-alt mr-2"></i>
+                        APK sécurisé • Source : facdoc.online
+                    </p>
                 </div>
             </div>
         </div>
@@ -461,17 +387,17 @@
 
     <!-- Footer -->
     <footer class="bg-dark text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
                 <div>
                     <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 rounded-lg gradient-bg flex items-center justify-center">
-                            <i class="fas fa-graduation-cap text-white"></i>
+                        <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                            <i class="fas fa-book text-white"></i>
                         </div>
                         <span class="text-2xl font-bold">Facdoc</span>
                     </div>
                     <p class="text-gray-400">
-                        L'assistant académique intelligent pour les étudiants ambitieux.
+                        Votre bibliothèque académique mobile. Accédez à vos cours, partout, tout le temps.
                     </p>
                 </div>
                 
@@ -485,37 +411,116 @@
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-bold mb-6">Support</h4>
+                    <h4 class="text-lg font-bold mb-6">À propos</h4>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Centre d'aide</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contact</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-bold mb-6">Légal</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Mentions légales</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Confidentialité</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">CGU</a></li>
+                        <li class="text-gray-400">Application éducative</li>
+                        <li class="text-gray-400">Version 1.0</li>
+                        <li class="text-gray-400">Développée pour les étudiants</li>
                     </ul>
                 </div>
             </div>
             
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
-                <p>© 2024 Facdoc. Tous droits réservés. Conçu avec ❤️ pour les étudiants.</p>
-                <div class="flex justify-center space-x-6 mt-6">
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-github"></i></a>
-                </div>
+                <p>© 2024 Facdoc. Application académique hors ligne.</p>
+                <p class="mt-2 text-sm">Conçu pour simplifier la vie des étudiants.</p>
             </div>
         </div>
     </footer>
 
     <!-- Script JavaScript -->
-    <script src="js/script.js"></script>
+    <script>
+        // Galerie simple
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('#gallery img');
+        
+        function showImage(index) {
+            images.forEach((img, i) => {
+                if (i === index) {
+                    img.parentElement.style.display = 'block';
+                } else {
+                    img.parentElement.style.display = 'none';
+                }
+            });
+        }
+        
+        function initGallery() {
+            // Sur mobile, afficher une seule image à la fois
+            if (window.innerWidth < 768) {
+                showImage(currentImageIndex);
+                document.querySelectorAll('#gallery button').forEach(btn => {
+                    btn.style.display = 'flex';
+                });
+            } else {
+                // Sur desktop, tout afficher
+                images.forEach(img => {
+                    img.parentElement.style.display = 'block';
+                });
+                document.querySelectorAll('#gallery button').forEach(btn => {
+                    btn.style.display = 'none';
+                });
+            }
+        }
+        
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            showImage(currentImageIndex);
+        }
+        
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            showImage(currentImageIndex);
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            initGallery();
+            
+            // Navigation fluide
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Animation des cartes au défilement
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Appliquer aux cartes
+            document.querySelectorAll('.card-hover').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+        });
+        
+        // Re-initialiser la galerie au redimensionnement
+        window.addEventListener('resize', initGallery);
+    </script>
+
+
+    <!-- Script JavaScript 
+    <script src="js/script.js"></script>-->
 </body>
 </html>
